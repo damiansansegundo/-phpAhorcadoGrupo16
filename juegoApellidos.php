@@ -24,8 +24,6 @@ function cargarPalabras(){
 
 /**
 * /*>>> completar comentario <<<*/
-* 
-*/
 function cargarJuegos(){
 	$coleccionJuegos = array();
 	$coleccionJuegos[0] = array("puntos"=> 0, "indicePalabra" => 1);
@@ -108,7 +106,6 @@ function existeLetra(/*>>> Completar parámetros <<<*/ ){
 
 /**
 * Obtener indice aleatorio
-* /*>>> Completar documentacion <<<*/
 */
 function indiceAleatorioEntre($min,$max){
     $i = rand($min,$max); // /*>>> documente qué hace la función rand según el manual php.net en internet <<<*/
@@ -143,7 +140,7 @@ function palabraDescubierta($coleccionLetras){
 }
 
 /**
-* /*>>> Completar documentacion <<<*/
+* /*>>> Completar documentacion <<<
 */
 function solicitarLetra(){
     $letraCorrecta = false;
