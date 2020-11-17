@@ -1,7 +1,8 @@
 <?php
 /******************************************
-*Completar:
-* NOMBRE Y APELLIDOS - LEGAJOS
+* Alumnos:
+* Damian Nicolas Lenadro San Segundo - LEGAJOS
+* Facundo Franco Ramirez - LEGAJOS
 ******************************************/
 
 
@@ -106,6 +107,7 @@ function existeLetra(/*>>> Completar parámetros <<<*/ ){
 
 /**
 * Obtener indice aleatorio
+* /*>>> Completar documentacion <<<
 */
 function indiceAleatorioEntre($min,$max){
     $i = rand($min,$max); // /*>>> documente qué hace la función rand según el manual php.net en internet <<<*/
