@@ -17,7 +17,10 @@ function cargarPalabras(){
   $coleccionPalabras[0]= array("palabra"=> "papa" , "pista" => "se cultiva bajo tierra", "puntosPalabra"=>7);
   $coleccionPalabras[1]= array("palabra"=> "hepatitis" , "pista" => "enfermedad que inflama el higado", "puntosPalabra"=> 7);
   $coleccionPalabras[2]= array("palabra"=> "volkswagen" , "pista" => "marca de vehiculo", "puntosPalabra"=> 10);
-  
+  $coleccionPalabras[3]= array("palabra"=> "tomate" , "pista" => "fruta de color rojo", "puntosPalabra"=> 8);
+  $coleccionPalabras[4]= array("palabra"=> "cargador" , "pista" => "se utiliza para administrar energia a objetos con bateria", "puntosPalabra"=> 5);
+  $coleccionPalabras[5]= array("palabra"=> "trofeo" , "pista" => "objeto que premia a un jugador/competidor", "puntosPalabra"=> 8);
+  $coleccionPalabras[6]= array("palabra"=> "fuego" , "pista" => "es uno de los 4 elementos de las cosmogonias", "puntosPalabra"=> 7);
   /*>>> Agregar al menos 4 palabras más <<<*/
   
   return $coleccionPalabras;
@@ -47,6 +50,18 @@ function dividirPalabraEnLetras($palabra){
     /*>>> Completar para generar la estructura de datos b) indicada en el enunciado. 
           recuerde que los string pueden ser recorridos como los arreglos.  <<<*/
     
+          // hacer arreglo de $coleccionLetra
+          for ($i=0; $i<strlen($palabra); $i++){
+            $palabra[$i] ;
+         
+            $coleccionLetras = [] ;
+            $coleccionLetras[$i]= ["letra " => $palabra[$i] , "descubierta" => false ] ;
+
+          }
+
+          return $coleccionLetras ;
+
+  // REVISAR !!!!!!!!
 }
 
 /**
@@ -54,12 +69,25 @@ function dividirPalabraEnLetras($palabra){
 * @return int
 */
 function seleccionarOpcion(){
+    
+    // int $opcion 
+
+    // FUNCION TERMINADA !!!!
+
     echo "--------------------------------------------------------------\n";
     echo "\n ( 1 ) Jugar con una palabra aleatoria"; 
-    
-    /*>>> Completar el menu <<<*/
-    
-    /*>>> Además controlar que la opción elegida es válida. Puede que el usuario se equivoque al elegir una opción <<<*/
+    echo "\n ( 2 ) Jugar con una palabra elegida";
+    echo "\n ( 3 ) Agregar una palabra al listado";
+    echo "\n ( 4 ) Mostrar la informacion completa de un numero de juego";
+    echo "\n ( 5 ) Mostrar la informacion completa del primer juego con mas puntaje";
+    echo "\n ( 6 ) Mostrar la informacion completa del primer juego que supere un puntaje indicado por el usuario";
+    echo "\n ( 7 ) Mostrar la lista de palabras ordenada por puntajes";
+    echo "\n ( 8 ) Salir";
+   do { 
+       echo "\n Indique una opcion valida : " ;
+    $opcion = trim(fgets(STDIN)) ;
+
+    } while ($opcion < 1 || $opcion > 8 );
     
     echo "--------------------------------------------------------------\n";
     return $opcion;
@@ -93,7 +121,19 @@ function existePalabra($coleccionPalabras,$palabra){
 function existeLetra(/*>>> Completar parámetros <<<*/ ){
     
     /*>>> Completar cuerpo de la función <<<*/
+    // recorrido parcial
 
+    $i=0;
+    $cantLetras = count($coleccionLetras);
+    $existe = false;
+    while($i<$cantLetras && !$existe){
+        $existe = $coleccionLetras[$i]["letra"] == $letra;
+        $i++;
+    }
+    
+    return $existe;
+
+    // REVISAR !!!!!!!!
 }
 
 /**
@@ -107,11 +147,15 @@ function existeLetra(/*>>> Completar parámetros <<<*/ ){
 
 /**
 * Obtener indice aleatorio
-* /*>>> Completar documentacion <<<
+* @param int $min
+* @param int $max 
+* @return int 
 */
 function indiceAleatorioEntre($min,$max){
-    $i = rand($min,$max); // /*>>> documente qué hace la función rand según el manual php.net en internet <<<*/
+    $i = rand($min,$max); // Genera un número entero aleatorio
     return $i;
+
+    // FUNCION TERMINADA !!!!
 }
 
 /**
@@ -139,6 +183,13 @@ function solicitarIndiceEntre($min,$max){
 function palabraDescubierta($coleccionLetras){
     
     /*>>> Completar el cuerpo de la función, respetando lo indicado en la documentacion <<<*/
+
+    if ($coleccionLetras) {
+        $descubierta = true ;
+    }
+
+    // SEGUIR COMPLETANDOLA!!!!
+    
 }
 
 /**
