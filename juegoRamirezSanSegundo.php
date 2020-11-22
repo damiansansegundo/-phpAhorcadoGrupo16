@@ -359,11 +359,12 @@ function jugar($coleccionPalabras, $indicePalabra, $cantIntentos){
     
     If($palabraFueDescubierta){
         //obtener puntaje:
-        $puntaje = $coleccionPalabras[$indicePalabra]["puntaje"] + $cantIntentos ;   // COMPLETADA
+        $puntaje = $coleccionPalabras[$indicePalabra]["puntaje"] + $cantIntentos ;   // REVISAR
         
         echo "\n¡¡¡¡¡¡GANASTE ".$puntaje." puntos!!!!!!\n";
     }else{
         echo "\n¡¡¡¡¡¡AHORCADO AHORCADO!!!!!!\n";
+        echo  "  +-----+ \n" . "  O     |\n" . " /|\    | \n". " / \    |\n". "        | \n". "        |\n". "     ----- \n"  ;  // Dibujo del ahorcado
     }
     
     return $puntaje;
@@ -416,37 +417,79 @@ function mostrarJuego($coleccionJuegos,$coleccionPalabras,$indiceJuego){
 
 
 /*>>> Implementar las funciones necesarias para la opcion 5 del menú <<<*/
-
-    /**
-* Muestra la informacion completa de primer juego con mas puntaje                                                                  
+/**
+* Muestra los datos completos de un juego                                                                   
 * @param array $coleccionJuegos
 * @param array $coleccionPalabras
 * @param int $indiceJuego
 */
-function juegoMayorPuntaje($coleccionJuegos,$coleccionPalabras,$indiceJuego){
-    //array("puntos"=> 8, "indicePalabra" => 1)
+function JuegoMayorPuntaje($coleccionJuegos,$coleccionPalabras,$indiceJuego){
 
-    // int $mayorPuntaje
 
+    // int $mayorPuntaje = 0
     $mayorPuntaje = 0 ;
+
+    //array("puntos"=> 8, "indicePalabra" => 1)
 
     if ($coleccionJuegos[$indiceJuego]["puntos"] > $mayorPuntaje) {
 
         $mayorPuntaje = $coleccionJuegos[$indiceJuego]["puntos"] ;
 
-        echo "\n\n";
-        echo "<-<-< Juego ".$indiceJuego." >->->\n";
-        echo "  Puntos ganados: ".$coleccionJuegos[$indiceJuego]["puntos"]."\n";
-        echo "  Información de la palabra:\n";
-        mostrarPalabra($coleccionPalabras,$coleccionJuegos[$indiceJuego]["indicePalabra"]);
-        echo "\n"; 
+        $salida =  mostrarJuego($coleccionJuegos,$coleccionPalabras,$indiceJuego) ;
+    } else {
+        $salida = "-1" ;
     }
-   
+
+    return $salida ;
 }
+
 
 /*>>> Implementar las funciones necesarias para la opcion 6 del menú <<<*/
 
+/**
+ * muestra en orden alfabetico la coleccion de palabras
+ */
+
+function palabrasEnOrden(){
+
+    // array $demostracion
+    
+    for ($i=0; $i < 6; $i++) {       // no estoy seguro si esta bien poner $i < 6, hace referencia a la cantidad de palabras cargadas
+        $demostracion = cargarPalabras();
+    }
+         sort($demostracion);
+        print_r($demostracion) ;
+  
+    
+}
+
+
 /*>>> Implementar las funciones necesarias para la opcion 7 del menú <<<*/
+
+/**
+ * muestra en orden de menor a mayor el puntaje de palabras
+ * @param array $cargarPalabras
+ */
+
+
+function cmp($a, $b) {
+    if ($a == $b){
+    $orden = 0;}
+    elseif($a < $b){
+    $orden = -1;}
+    else{
+    $orden = 1;}
+    return $orden;
+    }
+    
+
+
+
+for ($i=0; $i < 6; $i++) {        // revisar si esta parte iria en el Programa Principal o implementar otra funcion
+    $demostracion = cargarPalabras();
+}
+     uasort($demostracion , 'cmp');
+    print_r($demostracion) ;
 
 
 
