@@ -359,7 +359,7 @@ function jugar($coleccionPalabras, $indicePalabra, $cantIntentos){
     
     If($palabraFueDescubierta){
         //obtener puntaje:
-        $puntaje = $coleccionPalabras[$indicePalabra]["puntaje"] /* +INTENTOS QUE QUEDARON*/ ;
+        $puntaje = $coleccionPalabras[$indicePalabra]["puntaje"] + $cantIntentos ;   // COMPLETADA
         
         echo "\n¡¡¡¡¡¡GANASTE ".$puntaje." puntos!!!!!!\n";
     }else{
@@ -416,6 +416,33 @@ function mostrarJuego($coleccionJuegos,$coleccionPalabras,$indiceJuego){
 
 
 /*>>> Implementar las funciones necesarias para la opcion 5 del menú <<<*/
+
+    /**
+* Muestra la informacion completa de primer juego con mas puntaje                                                                  
+* @param array $coleccionJuegos
+* @param array $coleccionPalabras
+* @param int $indiceJuego
+*/
+function juegoMayorPuntaje($coleccionJuegos,$coleccionPalabras,$indiceJuego){
+    //array("puntos"=> 8, "indicePalabra" => 1)
+
+    // int $mayorPuntaje
+
+    $mayorPuntaje = 0 ;
+
+    if ($coleccionJuegos[$indiceJuego]["puntos"] > $mayorPuntaje) {
+
+        $mayorPuntaje = $coleccionJuegos[$indiceJuego]["puntos"] ;
+
+        echo "\n\n";
+        echo "<-<-< Juego ".$indiceJuego." >->->\n";
+        echo "  Puntos ganados: ".$coleccionJuegos[$indiceJuego]["puntos"]."\n";
+        echo "  Información de la palabra:\n";
+        mostrarPalabra($coleccionPalabras,$coleccionJuegos[$indiceJuego]["indicePalabra"]);
+        echo "\n"; 
+    }
+   
+}
 
 /*>>> Implementar las funciones necesarias para la opcion 6 del menú <<<*/
 
