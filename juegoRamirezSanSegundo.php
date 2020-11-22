@@ -165,7 +165,7 @@ function cargarNuevaPalabra($coleccionPalabras){ /*>>> Completar la interfaz y c
         echo "Ingrese una nueva palara: ";
         $nuevaPalabra = trim(fgets(STDIN));
  
-    } while (existePalabra($nuevaPalabra));
+    } while (existePalabra($nuevaPalabra)); // creo que faltaria agregar la $coleccionLetras, para que pueda invocar bien a la funcion
 
     echo "Ingrese la pista: ";
     $nuevaPista = trim(fgets(STDIN));
