@@ -162,10 +162,10 @@ function cargarNuevaPalabra($coleccionPalabras){ /*>>> Completar la interfaz y c
     //string $nuevaPista, $nuevaPalabra
     //int $nuevoPuntaje, $indice
     do { 
-        echo "Ingrese una nueva palara: ";
+        echo "Ingrese una nueva palabra: ";                     
         $nuevaPalabra = trim(fgets(STDIN));
  
-    } while (existePalabra($nuevaPalabra)); // creo que faltaria agregar la $coleccionLetras, para que pueda invocar bien a la funcion
+    } while (existePalabra($coleccionPalabras, $nuevaPalabra)); // CORREGIDO PARA PODER LLAMAR A LA FUNCION CORRECTAMENTE
 
     echo "Ingrese la pista: ";
     $nuevaPista = trim(fgets(STDIN));
@@ -174,7 +174,7 @@ function cargarNuevaPalabra($coleccionPalabras){ /*>>> Completar la interfaz y c
     $nuevoPuntaje = trim(fgets(STDIN));
 
     //define el indice de la palabra nueva en base a la cantidad de palabras registradas
-    $indice = count($coleccionPalabras) + 1;
+    $indice = count($coleccionPalabras);
 
     $coleccionPalabras[$indice]= array("palabra"=> $nuevaPalabra , "pista" => $nuevaPista , "puntosPalabra"=> $nuevoPuntaje);
     
@@ -448,14 +448,35 @@ function mostrarJuego($coleccionJuegos,$coleccionPalabras,$indiceJuego){
 }
 
 
+/**
+* Obtiene el indice de la partida con mas puntaje                                                                  
+* @param array $coleccionJuegos
+* @return int
+*/
+function indiceMayorPuntaje($coleccionJuegos){
+
+    $indiceDeMayorPuntaje = 0;
+    $mayorPuntaje = 0;
+    for($i = 0; $i < count($coleccionJuegos); $i++){
+        if ($coleccionJuegos[$i]["puntos"] > $mayorPuntaje){
+            $mayorPuntaje = $coleccionJuegos[$i]["puntos"];
+            $indiceDeMayorPuntaje = $i; 
+        }                                                                         
+    }
+
+    return $indiceDeMayorPuntaje;
+    //FUNCION TERMINADA
+}
+
+
 /*>>> Implementar las funciones necesarias para la opcion 5 del menú <<<*/
 /**
-* Muestra los datos completos de un juego                                                                   
+* Muestra los datos completos del priemr juego con más puntaje                                                                  
 * @param array $coleccionJuegos
 * @param array $coleccionPalabras
 * @param int $indiceJuego
 */
-function JuegoMayorPuntaje($coleccionJuegos,$coleccionPalabras,$indiceJuego){
+function juegoMayorPuntaje($coleccionJuegos,$coleccionPalabras,$indiceJuego){
 
 
     // int $mayorPuntaje = 0
@@ -515,15 +536,15 @@ function cmp($a, $b) {
     }
 
 
-
+/*
 
 for ($i=0; $i < 6; $i++) {        // revisar si esta parte iria en el Programa Principal o implementar otra funcion
     $demostracion = cargarPalabras();
 }
-     uasort($demostracion , 'cmp');
+     uasort($demostracion , 'cmp');             
     print_r($demostracion) ;
 
-
+*/
 
 
 /******************************************/
@@ -534,29 +555,34 @@ define("CANT_INTENTOS", 6); //Constante en php para cantidad de intentos que ten
 //array $coleccionPalabrasJuego
 //int $indicePalabra
 
-$coleccionPalabrasJuego = cargarPalabras();
+$coleccionPalabrasEnJuego = cargarPalabras();
+$coleccionJuegosActual = cargarJuegos();
 
 do{
     $opcion = seleccionarOpcion();
     switch ($opcion) {
     case 1: //Jugar con una palabra aleatoria
-        $indicePalabra = indiceAleatorioEntre(0,count($coleccionPalabrasJuego));
-        jugar($coleccionPalabrasJuego, $indicePalabra, CANT_INTENTOS);
+        $indicePalabra = indiceAleatorioEntre(0,count($coleccionPalabrasEnJuego))-1;
+        jugar($coleccionPalabrasEnJuego, $indicePalabra, CANT_INTENTOS);
 
         break;
     case 2: //Jugar con una palabra elegida
-        $indicePalabra = solicitarIndiceEntre(0,count($coleccionPalabras))-1;
-        jugar($coleccionPalabrasJuego, $indicePalabra, CANT_INTENTOS);                             
+        $indicePalabra = solicitarIndiceEntre(0,count($coleccionPalabrasEnJuego))-1;
+        jugar($coleccionPalabrasEnJuego, $indicePalabra, CANT_INTENTOS);                             
 
         break;
-    case 3: //Agregar una palabra al listado
-        
+    case 3: //Agregar una palabra al listado                                                   
+        $coleccionPalabrasEnJuego = cargarNuevaPalabra();
 
         break;
     case 4: //Mostrar la información completa de un número de juego
+        $indiceJuego = solicitarIndiceEntre(0,count($coleccionJuegosActual))-1;
+        mostrarJuego($coleccionJuegosActual,$coleccionPalabrasEnJuego,$indiceJuego);                                      
 
         break;
-    case 5: //Mostrar la información completa del primer juego con más puntaje
+    case 5: //Mostrar la información completa del primer juego con más puntaje                          
+        $indiceJuego = indiceMayorPuntaje($coleccionJuegosActual);
+        mostrarJuego($coleccionJuegosActual,$coleccionPalabrasEnJuego,$indiceJuego);
 
         break;
     case 6: //Mostrar la información completa del primer juego que supere un puntaje indicado por el usuario
