@@ -206,8 +206,9 @@ function indiceAleatorioEntre($min,$max){
 */
 function solicitarIndiceEntre($min,$max){ 
     do{
-        echo "Seleccione un valor entre $min y $max: ";
+        echo "Seleccione un valor entre $min y $max: \n";
         $i = trim(fgets(STDIN));
+        echo "--------------------------------------------------------------\n";
     }while(!($i>=$min && $i<=$max));
     
     return $i;
@@ -221,27 +222,32 @@ function solicitarIndiceEntre($min,$max){
 * @return boolean
 */
 function palabraDescubierta($coleccionLetras){
-    //int $i, $cantLetras
+    //int $i, $cantLetras, $noDescubierta
     //boolean $descubierta
     
     /*>>> Completar el cuerpo de la función, respetando lo indicado en la documentacion <<<*/
 
-
+    $noDescubierta = 0;
     $i=0;
     $cantLetras = count($coleccionLetras);
     $descubierta = true;
 
-    //acumula la cantidad de letras que fueron descubiertas
+    //recorre las letras y si hay por lo menos una que no fue descubierta, lo registra
     while($i<$cantLetras && $descubierta){
         $descubierta = $coleccionLetras[$i]["descubierta"] == true;
+
+        if(!$descubierta){
+            $noDescubierta = $noDescubierta + 1;
+        }
+
         $i++;
+
     }
 
-    //si el contador de iteraciones es igual a la cantidad de letras, quiere decir que la palabra fue descubierta
-    if ($i == $cantLetras) {
+    //si hay por lo menos una letra que no fue descubierta, la palabra no fue descubierta
+    if($noDescubierta == 0){
         $descubierta = true;
-    }
-    else {
+    } else {
         $descubierta = false;
     }
 
@@ -298,6 +304,8 @@ function destaparLetra($coleccionLetras, $letra){
     //FUNCION TERMINADA
 }
 
+
+
 /**
 * obtiene la palabra con las letras descubiertas y * (asterisco) en las letras no descubiertas. Ejemplo: he**t*t*s              
 * @param array $coleccionLetras
@@ -350,16 +358,38 @@ function jugar($coleccionPalabras, $indicePalabra, $cantIntentos){
     /*>>> Completar el cuerpo de la función, respetando lo indicado en la documentacion <<<*/
     
     //Mostrar pista:
-    echo $coleccionPalabras[$indicePalabra]["pista"];
+    echo $coleccionPalabras[$indicePalabra]["pista"] . "\n";
+    echo "--------------------------------------------------------------\n";
     
     //solicitar letras mientras haya intentos y la palabra no haya sido descubierta:
     do {
         $letra = solicitarLetra();
-    } while ($cantIntentos != 0 && !$palabraFueDescubierta);                                    /*FALTA COMPLETAR*/
+
+        //se registra si la letra existe en la palabra o no
+        $letraExiste = existeLetra($coleccionLetras, $letra);
+
+        //si la letra ingresada existe en la palabra, se registra en la coleccion de letras
+        $coleccionLetras = destaparLetra($coleccionLetras, $letra);
+
+        //si la letra existe, se muestra en pantalla el progreso de la palabra y sino, se resta un intento
+        if ($letraExiste){
+            echo "La letra '$letra' PERTENECE a la palabra.\n";
+            echo "palabra a descubrir: " . stringLetrasDescubiertas($coleccionLetras) . "\n";
+            echo "--------------------------------------------------------------\n";                     
+        } else {
+            $cantIntentos = $cantIntentos -1;
+            echo "La letra '$letra' NO PERTENECE a la palabra. Quedan $cantIntentos intentos.\n";
+            echo "palabra a descubrir: " . stringLetrasDescubiertas($coleccionLetras) . "\n";
+            echo "--------------------------------------------------------------\n";
+        }
+
+        $palabraFueDescubierta = palabraDescubierta($coleccionLetras);
+
+    } while ($cantIntentos != 0 && !$palabraFueDescubierta);                                    
     
     If($palabraFueDescubierta){
         //obtener puntaje:
-        $puntaje = $coleccionPalabras[$indicePalabra]["puntaje"] + $cantIntentos ;   // REVISAR
+        $puntaje = $coleccionPalabras[$indicePalabra]["puntosPalabra"] + $cantIntentos ;   //CORREGIDO
         
         echo "\n¡¡¡¡¡¡GANASTE ".$puntaje." puntos!!!!!!\n";
     }else{
@@ -368,6 +398,8 @@ function jugar($coleccionPalabras, $indicePalabra, $cantIntentos){
     }
     
     return $puntaje;
+
+    //FUNCION TERMINADA
 }
 
 /**
@@ -481,7 +513,7 @@ function cmp($a, $b) {
     $orden = 1;}
     return $orden;
     }
-    
+
 
 
 
@@ -499,16 +531,26 @@ for ($i=0; $i < 6; $i++) {        // revisar si esta parte iria en el Programa P
 /******************************************/
 define("CANT_INTENTOS", 6); //Constante en php para cantidad de intentos que tendrá el jugador para adivinar la palabra.
 
+//array $coleccionPalabrasJuego
+//int $indicePalabra
+
+$coleccionPalabrasJuego = cargarPalabras();
+
 do{
     $opcion = seleccionarOpcion();
     switch ($opcion) {
     case 1: //Jugar con una palabra aleatoria
+        $indicePalabra = indiceAleatorioEntre(0,count($coleccionPalabrasJuego));
+        jugar($coleccionPalabrasJuego, $indicePalabra, CANT_INTENTOS);
 
         break;
     case 2: //Jugar con una palabra elegida
+        $indicePalabra = solicitarIndiceEntre(0,count($coleccionPalabras))-1;
+        jugar($coleccionPalabrasJuego, $indicePalabra, CANT_INTENTOS);                             
 
         break;
     case 3: //Agregar una palabra al listado
+        
 
         break;
     case 4: //Mostrar la información completa de un número de juego
