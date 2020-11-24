@@ -439,12 +439,18 @@ function mostrarPalabra($coleccionPalabras,$indicePalabra){
 */
 function mostrarJuego($coleccionJuegos,$coleccionPalabras,$indiceJuego){
     //array("puntos"=> 8, "indicePalabra" => 1)
+
+    //si el indice es menor a 0, el juego indicado o demandado no existe
+    if ($indiceJuego < 0){
+        echo "No existe el juego indicado\n";
+    } else {
     echo "\n\n";
     echo "<-<-< Juego ".$indiceJuego." >->->\n";
     echo "  Puntos ganados: ".$coleccionJuegos[$indiceJuego]["puntos"]."\n";
     echo "  Información de la palabra:\n";
     mostrarPalabra($coleccionPalabras,$coleccionJuegos[$indiceJuego]["indicePalabra"]);
     echo "\n";
+    }
 }
 
 
