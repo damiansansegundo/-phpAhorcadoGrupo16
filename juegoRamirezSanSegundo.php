@@ -448,6 +448,9 @@ function mostrarJuego($coleccionJuegos,$coleccionPalabras,$indiceJuego){
 }
 
 
+
+
+/*>>> Implementar las funciones necesarias para la opcion 5 del menú <<<*/
 /**
 * Obtiene el indice de la partida con mas puntaje                                                                  
 * @param array $coleccionJuegos
@@ -469,82 +472,47 @@ function indiceMayorPuntaje($coleccionJuegos){
 }
 
 
-/*>>> Implementar las funciones necesarias para la opcion 5 del menú <<<*/
+/*>>> Implementar las funciones necesarias para la opcion 6 del menú <<<*/
 /**
-* Muestra los datos completos del priemr juego con más puntaje                                                                  
+* Obtiene el indice de la partida con mas puntaje                                                                  
 * @param array $coleccionJuegos
-* @param array $coleccionPalabras
-* @param int $indiceJuego
+* @param int $puntajeIngresado
+* @return int
 */
-function juegoMayorPuntaje($coleccionJuegos,$coleccionPalabras,$indiceJuego){
+function MayorPuntajeIngresado($coleccionJuegos){
 
+    // int $indiceMayorPuntaje
+    $indiceDeMayorPuntaje = -1;
+    echo "ingrese un puntaje : " ;
+    $puntajeIngresado = trim(fgets(STDIN)) ;
 
-    // int $mayorPuntaje = 0
-    $mayorPuntaje = 0 ;
-
-    //array("puntos"=> 8, "indicePalabra" => 1)
-
-    if ($coleccionJuegos[$indiceJuego]["puntos"] > $mayorPuntaje) {
-
-        $mayorPuntaje = $coleccionJuegos[$indiceJuego]["puntos"] ;
-
-        $salida =  mostrarJuego($coleccionJuegos,$coleccionPalabras,$indiceJuego) ;
-    } else {
-        $salida = "-1" ;
+    for($i = 0; $i < count($coleccionJuegos); $i++){
+        if ($coleccionJuegos[$i]["puntos"] > $puntajeIngresado){
+            $puntajeIngresado = $coleccionJuegos[$i]["puntos"];
+            $indiceDeMayorPuntaje = $i; 
+        }                                                                         
     }
 
-    return $salida ;
+    return $indiceDeMayorPuntaje;
+    //FUNCION TERMINADA
 }
 
+/*>>> Implementar las funciones necesarias para la opcion 7 del menú <<<*/
 
-/*>>> Implementar las funciones necesarias para la opcion 6 del menú <<<*/
 
 /**
- * muestra en orden alfabetico la coleccion de palabras
+ * muestra el arreglo de palabras en orden alfabetico
+ * @param array $coleccionPalabras
  */
+function palabrasEnOrden($coleccionPalabras){
 
-function palabrasEnOrden(){
-
-    // array $demostracion
     
-    for ($i=0; $i < 6; $i++) {       // no estoy seguro si esta bien poner $i < 6, hace referencia a la cantidad de palabras cargadas
-        $demostracion = cargarPalabras();
-    }
-         sort($demostracion);
-        print_r($demostracion) ;
+    sort($coleccionPalabras);
+    print_r($coleccionPalabras) ;
   
     
 }
 
-
-/*>>> Implementar las funciones necesarias para la opcion 7 del menú <<<*/
-
-/**
- * muestra en orden de menor a mayor el puntaje de palabras
- * @param array $cargarPalabras
- */
-
-
-function cmp($a, $b) {
-    if ($a == $b){
-    $orden = 0;}
-    elseif($a < $b){
-    $orden = -1;}
-    else{
-    $orden = 1;}
-    return $orden;
-    }
-
-
-/*
-
-for ($i=0; $i < 6; $i++) {        // revisar si esta parte iria en el Programa Principal o implementar otra funcion
-    $demostracion = cargarPalabras();
-}
-     uasort($demostracion , 'cmp');             
-    print_r($demostracion) ;
-
-*/
 
 
 /******************************************/
@@ -572,7 +540,7 @@ do{
 
         break;
     case 3: //Agregar una palabra al listado                                                   
-        $coleccionPalabrasEnJuego = cargarNuevaPalabra();
+        $coleccionPalabrasEnJuego = cargarNuevaPalabra($coleccionPalabrasEnJuego); // puse $coleccionPalabrasEnJuego creo que es esa la variable ahi REVISAR por las dudas
 
         break;
     case 4: //Mostrar la información completa de un número de juego
@@ -586,9 +554,11 @@ do{
 
         break;
     case 6: //Mostrar la información completa del primer juego que supere un puntaje indicado por el usuario
-
+        $indiceMayor = MayorPuntajeIngresado($coleccionJuegosActual) ;
+        mostrarJuego($coleccionJuegosActual,$coleccionPalabrasEnJuego,$indiceMayor) ;
         break;
     case 7: //Mostrar la lista de palabras ordenada por orden alfabetico
+        palabrasEnOrden($coleccionPalabrasEnJuego) ;
 
         break;
     }
