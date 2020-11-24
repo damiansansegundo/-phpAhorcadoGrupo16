@@ -422,6 +422,7 @@ function jugar($coleccionPalabras, $indicePalabra, $cantIntentos){
 * @return array coleccion de juegos modificada
 */
 function agregarJuego($coleccionJuegos,$puntos,$indicePalabra){
+    //int $cantJuegos
 
     $cantJuegos = count($coleccionJuegos);
 
@@ -436,6 +437,7 @@ function agregarJuego($coleccionJuegos,$puntos,$indicePalabra){
 * @param int $indicePalabra
 */
 function mostrarPalabra($coleccionPalabras,$indicePalabra){
+
     //$coleccionPalabras[0]= array("palabra"=> "papa" , "pista" => "se cultiva bajo tierra", "puntosPalabra"=>7);
     echo "palabra en indice: $indicePalabra\n";
     echo "palabra = " . $coleccionPalabras[$indicePalabra]["palabra"] . "\n";
@@ -479,9 +481,13 @@ function mostrarJuego($coleccionJuegos,$coleccionPalabras,$indiceJuego){
 * @return int
 */
 function indiceMayorPuntaje($coleccionJuegos){
+    //int $indiceDeMayorPuntaje, $mayorPuntaje, $i
 
     $indiceDeMayorPuntaje = 0;
     $mayorPuntaje = 0;
+
+    //recorre la colección de juegos y registra el indice de partida con mayor puntaje
+    //recorrido exhaustivo
     for($i = 0; $i < count($coleccionJuegos); $i++){
         if ($coleccionJuegos[$i]["puntos"] > $mayorPuntaje){
             $mayorPuntaje = $coleccionJuegos[$i]["puntos"];
@@ -501,13 +507,14 @@ function indiceMayorPuntaje($coleccionJuegos){
 * @param int $puntajeIngresado
 * @return int
 */
-function MayorPuntajeIngresado($coleccionJuegos){
+function MayorPuntajeQueIngresado($coleccionJuegos){
+    // int $indiceDeMayorPuntaje, $puntajeIngresado, $i
 
-    // int $indiceMayorPuntaje
     $indiceDeMayorPuntaje = -1;
     echo "ingrese un puntaje : " ;
     $puntajeIngresado = trim(fgets(STDIN)) ;
 
+    //recorrido exhaustivo
     for($i = 0; $i < count($coleccionJuegos); $i++){
         if ($coleccionJuegos[$i]["puntos"] > $puntajeIngresado){
             $puntajeIngresado = $coleccionJuegos[$i]["puntos"];
@@ -532,6 +539,7 @@ function palabrasEnOrden($coleccionPalabras){
     sort($coleccionPalabras);
     print_r($coleccionPalabras) ;
   
+    //print_r  Muestra en pantalla la información legible para humanos sobre una variable 
     
 }
 
@@ -549,6 +557,7 @@ $coleccionPalabrasEnJuego = cargarPalabras();
 $coleccionJuegosActual = cargarJuegos();
 $puntajePartida = 0;
 
+//La sentencia switch corresponde a la estructura de contral alternativa
 do{
     $opcion = seleccionarOpcion();
     switch ($opcion) {
@@ -579,7 +588,7 @@ do{
 
         break;
     case 6: //Mostrar la información completa del primer juego que supere un puntaje indicado por el usuario
-        $indiceMayor = MayorPuntajeIngresado($coleccionJuegosActual) ;
+        $indiceMayor = MayorPuntajeQueIngresado($coleccionJuegosActual) ;
         mostrarJuego($coleccionJuegosActual,$coleccionPalabrasEnJuego,$indiceMayor) ;
         break;
     case 7: //Mostrar la lista de palabras ordenada por orden alfabetico
