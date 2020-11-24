@@ -562,12 +562,12 @@ do{
     $opcion = seleccionarOpcion();
     switch ($opcion) {
     case 1: //Jugar con una palabra aleatoria
-        $indicePalabra = indiceAleatorioEntre(0,count($coleccionPalabrasEnJuego))-1;
+        $indicePalabra = indiceAleatorioEntre(0,count($coleccionPalabrasEnJuego)-1);
         jugar($coleccionPalabrasEnJuego, $indicePalabra, CANT_INTENTOS);
 
         break;
     case 2: //Jugar con una palabra elegida
-        $indicePalabra = solicitarIndiceEntre(0,count($coleccionPalabrasEnJuego))-1;
+        $indicePalabra = solicitarIndiceEntre(0,count($coleccionPalabrasEnJuego)-1);
         jugar($coleccionPalabrasEnJuego, $indicePalabra, CANT_INTENTOS);                             
 
         break;
@@ -576,7 +576,7 @@ do{
 
         break;
     case 4: //Mostrar la información completa de un número de juego
-        $indiceJuego = solicitarIndiceEntre(0,count($coleccionJuegosActual))-1;
+        $indiceJuego = solicitarIndiceEntre(0,count($coleccionJuegosActual)-1);
         mostrarJuego($coleccionJuegosActual,$coleccionPalabrasEnJuego,$indiceJuego);                                      
 
         break;
