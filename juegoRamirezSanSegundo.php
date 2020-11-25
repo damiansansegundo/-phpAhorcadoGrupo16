@@ -3,6 +3,9 @@
 *Completar:
 * Facundo Franco Ramirez - FAI-3083
 * Damian Nicolas Leandro San Segundo - FAI-2967
+*
+* Link repositorio: https://github.com/damiansansegundo/-phpAhorcadoGrupo16
+*
 ******************************************/
 
 
