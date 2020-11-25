@@ -4,7 +4,6 @@ Número de grupo: 16
 Integrantes: Ramirez, Franco Facundo
              San Segundo, Damián Nicolás Leandro
 Profesores: Karina Krozas
-            Majo Rotter
+            María José Rotter
             David Torchinsky
             Agustin Chiarotto
-            
