@@ -532,7 +532,7 @@ function palabrasEnOrden($coleccionPalabras){
 
     
     sort($coleccionPalabras);
-    print_r($coleccionPalabras) ;
+    print_r($coleccionPalabras);                                                                                     //5555 CAMBIO DAMIAN 555//
   
     //print_r  Muestra en pantalla la información legible para humanos sobre una variable 
     
