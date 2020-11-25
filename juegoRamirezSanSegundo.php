@@ -232,7 +232,7 @@ function palabraDescubierta($coleccionLetras){
     $cantLetras = count($coleccionLetras);
     $descubierta = true;
 
-    //recorrido exhaustivo
+    //recorrido parcial
     //recorre las letras y si hay por lo menos una que no fue descubierta, lo registra
     while($i<$cantLetras && $descubierta){
         $descubierta = $coleccionLetras[$i]["descubierta"] == true;
